@@ -1,10 +1,10 @@
-import { type ChangeEvent, type FormEvent, useState } from "react";
 import { motion } from "framer-motion";
 import {
   BrainCircuit,
   Check,
   CircleHelp,
   Database,
+  MessageCircle,
   Network,
   Radar,
   Server,
@@ -12,7 +12,6 @@ import {
   Zap,
   type LucideIcon,
 } from "lucide-react";
-import { toast } from "sonner";
 
 import {
   Accordion,
@@ -28,15 +27,17 @@ import {
   CardHeader,
   CardTitle,
 } from "./components/ui/card";
-import { Input } from "./components/ui/input";
-import { Textarea } from "./components/ui/textarea";
-import { Toaster } from "./components/ui/toaster";
 import { cn } from "./lib/utils";
 import "./App.css";
 
-const API_URL = import.meta.env.VITE_API_URL ?? "http://localhost:4000";
+const WHATSAPP_PHONE = "34627981146";
+const buildWhatsAppUrl = (message: string) =>
+  `https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent(message)}`;
+
+const WHATSAPP_URL = buildWhatsAppUrl(
+  "Hola, quiero mas informacion sobre InnoApp.",
+);
 const HERO_LOGO_SRC = "/images/InnoApp%20-%20Logotipo%20-%20vector.svg";
-const ORB_LOGO_SRC = "/images/InnoApp%20-%20Isotipo%20-%20vector.svg";
 
 type Feature = {
   title: string;
@@ -63,12 +64,6 @@ type FAQItem = {
   id: string;
   question: string;
   answer: string;
-};
-
-type ContactForm = {
-  name: string;
-  email: string;
-  message: string;
 };
 
 const features: Feature[] = [
@@ -178,6 +173,17 @@ const plans: PricingPlan[] = [
   },
 ];
 
+const getPlanWhatsAppUrl = (plan: PricingPlan) =>
+  buildWhatsAppUrl(
+    [
+      "Hola, quiero mas informacion sobre InnoApp.",
+      "",
+      `Plan seleccionado: ${plan.name}`,
+      `Accion solicitada: ${plan.cta}`,
+      "Quiero que me contacten por este plan.",
+    ].join("\n"),
+  );
+
 const testimonials: Testimonial[] = [
   {
     quote:
@@ -238,61 +244,9 @@ const sectionTransition = {
 };
 
 const sectionHeadingClass =
-  "mb-3 text-3xl font-semibold text-white md:text-4xl";
+  "mb-3 text-2xl font-semibold text-white sm:text-3xl md:text-4xl";
 
 function App() {
-  const [formData, setFormData] = useState<ContactForm>({
-    name: "",
-    email: "",
-    message: "",
-  });
-  const [isSubmitting, setIsSubmitting] = useState(false);
-
-  const handleInputChange =
-    (field: keyof ContactForm) =>
-    (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-      setFormData((prev) => ({ ...prev, [field]: event.target.value }));
-    };
-
-  const handleContactSubmit = async (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    setIsSubmitting(true);
-
-    try {
-      const response = await fetch(`${API_URL}/api/contact`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
-
-      const payload = (await response.json().catch(() => null)) as {
-        ok?: boolean;
-        error?: string;
-      } | null;
-
-      if (!response.ok || !payload?.ok) {
-        throw new Error(payload?.error ?? "No se pudo enviar el mensaje");
-      }
-
-      toast.success("Mensaje enviado", {
-        description: "Te contactaremos en menos de 24 horas.",
-      });
-      setFormData({ name: "", email: "", message: "" });
-    } catch (error) {
-      const errorMessage =
-        error instanceof Error
-          ? error.message
-          : "Ocurrio un error inesperado. Intentalo nuevamente.";
-      toast.error("Error al enviar", {
-        description: errorMessage,
-      });
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
-
   return (
     <div className="relative overflow-x-clip">
       <div
@@ -301,61 +255,53 @@ function App() {
       />
 
       <main>
-        <section id="hero" className="relative container overflow-hidden py-20 md:py-28">
+        <section
+          id="hero"
+          className="relative container overflow-hidden pb-14 pt-14 sm:pt-16 md:py-28"
+        >
           <motion.div
             initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ ...sectionTransition, delay: 0.06 }}
-            className="relative z-10 -mt-[100px] mb-10 flex justify-center md:mb-14"
+            className="relative z-10 mb-8 mt-10 flex justify-center sm:mb-10 md:mb-14 md:mt-0"
           >
-            <img
-              src={HERO_LOGO_SRC}
-              alt="InnoApp logotipo"
-              className="h-auto w-[min(90vw,740px)] drop-shadow-[0_20px_42px_rgba(140,244,238,0.38)]"
-              loading="eager"
-              decoding="async"
-            />
+            <div className="hero-logo-wrap">
+              <div className="orb" aria-hidden="true"></div>
+              <div className="orb-inner" aria-hidden="true"></div>
+              <div className="orb-inner-2" aria-hidden="true"></div>
+              <img
+                src={HERO_LOGO_SRC}
+                alt="InnoApp logotipo"
+                className="hero-logo-img"
+                loading="eager"
+                decoding="async"
+              />
+            </div>
           </motion.div>
 
-          <div className="orb" aria-hidden="true"></div>
-
-          <div className="orb-inner" aria-hidden="true"></div>
-
-          <div className="orb-inner-2" aria-hidden="true"></div>
-
-          <div className="orb-logo" aria-hidden="true">
-            <img
-              src={ORB_LOGO_SRC}
-              alt=""
-              className="orb-logo-img"
-              loading="eager"
-              decoding="async"
-            />
-          </div>
-
-          <div className="relative z-10 flex justify-center -mt-[50px]">
+          <div className="relative z-10 mt-16 flex justify-center sm:mt-20 md:mt-24">
             <motion.div
               initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
               transition={sectionTransition}
-              className="mx-auto max-w-3xl space-y-7 text-center"
+              className="mx-auto max-w-3xl space-y-6 px-1 text-center sm:space-y-7"
             >
               <div className="space-y-4">
-                <h1 className="heading-glow text-4xl font-semibold leading-tight text-white sm:text-5xl lg:text-6xl">
+                <h1 className="heading-glow text-3xl font-semibold leading-tight text-white sm:text-5xl lg:text-6xl">
                   Tu ventaja competitiva empieza en tus datos.
                 </h1>
-                <p className="mx-auto max-w-xl text-base leading-relaxed text-brand-light/85 sm:text-lg">
+                <p className="mx-auto max-w-xl text-sm leading-relaxed text-brand-light/85 sm:text-lg">
                   Diseñamos y operamos infraestructuras de datos listas para IA.
                   Data as a Service para empresas que toman decisiones con
                   inteligencia.
                 </p>
               </div>
 
-              <div className="flex flex-wrap justify-center gap-4">
-                <Button asChild size="lg">
+              <div className="flex flex-col justify-center gap-3 sm:flex-row sm:gap-4">
+                <Button asChild size="lg" className="w-full sm:w-auto">
                   <a href="#contact">Solicitar demo</a>
                 </Button>
-                <Button asChild size="lg" variant="secondary">
+                <Button asChild size="lg" variant="secondary" className="w-full sm:w-auto">
                   <a href="#pricing">Ver planes</a>
                 </Button>
               </div>
@@ -365,7 +311,7 @@ function App() {
 
         <motion.section
           id="features"
-          className="container py-16 md:py-24"
+          className="container py-14 md:py-24"
           initial={{ opacity: 0, y: 28 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
@@ -398,7 +344,7 @@ function App() {
                     <span className="inline-flex h-12 w-12 items-center justify-center rounded-xl border border-brand-primary/35 bg-brand-dark/70 text-brand-primary">
                       <feature.icon aria-hidden="true" className="h-5 w-5" />
                     </span>
-                    <CardTitle className="text-2xl leading-tight">
+                    <CardTitle className="text-xl leading-tight sm:text-2xl">
                       {feature.title}
                     </CardTitle>
                     <CardDescription className="text-sm leading-relaxed text-brand-light/85">
@@ -413,7 +359,7 @@ function App() {
 
         <motion.section
           id="how-it-works"
-          className="container py-16 md:py-24"
+          className="container py-14 md:py-24"
           initial={{ opacity: 0, y: 28 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
@@ -446,7 +392,7 @@ function App() {
                       {step.phase}
                     </span>
                   </div>
-                  <CardTitle className="text-2xl leading-tight">
+                  <CardTitle className="text-xl leading-tight sm:text-2xl">
                     {step.title}
                   </CardTitle>
                   <CardDescription className="text-sm leading-relaxed text-brand-light/85">
@@ -460,7 +406,7 @@ function App() {
 
         <motion.section
           id="pricing"
-          className="container py-16 md:py-24"
+          className="container py-14 md:py-24"
           initial={{ opacity: 0, y: 28 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
@@ -503,7 +449,7 @@ function App() {
                 )}
 
                 <CardHeader className="space-y-4">
-                  <CardTitle className="text-2xl leading-tight">
+                  <CardTitle className="text-xl leading-tight sm:text-2xl">
                     {plan.name}
                   </CardTitle>
                   <CardDescription className="text-sm leading-relaxed text-brand-light/85">
@@ -523,11 +469,18 @@ function App() {
                     ))}
                   </ul>
                   <Button
+                    asChild
                     variant={plan.popular ? "default" : "secondary"}
                     className="mt-8 w-full"
                     aria-label={`${plan.cta} para ${plan.name}`}
                   >
-                    {plan.cta}
+                    <a
+                      href={getPlanWhatsAppUrl(plan)}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      {plan.cta}
+                    </a>
                   </Button>
                 </CardContent>
               </Card>
@@ -537,7 +490,7 @@ function App() {
 
         <motion.section
           id="testimonials"
-          className="container py-16 md:py-24"
+          className="container py-14 md:py-24"
           initial={{ opacity: 0, y: 28 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
@@ -579,7 +532,7 @@ function App() {
 
         <motion.section
           id="faq"
-          className="container py-16 md:py-24"
+          className="container py-14 md:py-24"
           initial={{ opacity: 0, y: 28 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
@@ -606,105 +559,52 @@ function App() {
 
         <motion.section
           id="contact"
-          className="container py-16 pb-24 md:py-24"
+          className="container py-14 pb-24 md:py-24"
           initial={{ opacity: 0, y: 28 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
           transition={sectionTransition}
         >
-          <div className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr]">
-            <div className="glass-panel p-8">
+          <div className="grid gap-8">
+            <div className="glass-panel p-6 sm:p-8">
               <p className="mb-3 text-sm font-medium uppercase tracking-[0.25em] text-brand-primary/80">
                 Call to action
               </p>
-              <h2 className="mb-4 text-3xl font-semibold text-white md:text-4xl">
+              <h2 className="mb-4 text-2xl font-semibold text-white sm:text-3xl md:text-4xl">
                 Listo para escalar con InnoApp?
               </h2>
               <p className="max-w-xl text-brand-light/85">
                 Solicita una demo personalizada y descubre como automatizar tus
                 operaciones con una experiencia clara, moderna y eficiente.
               </p>
-            </div>
-
-            <Card className="border-brand-primary/25 bg-brand-dark2/78 p-6">
-              <form
-                onSubmit={handleContactSubmit}
-                className="space-y-4"
-                aria-label="Formulario de contacto"
+              <a
+                href={WHATSAPP_URL}
+                target="_blank"
+                rel="noreferrer"
+                className="mt-5 inline-flex rounded-full border border-brand-primary/35 px-4 py-2 text-sm text-brand-light transition-colors hover:border-brand-primary hover:text-brand-primary"
               >
-                <div className="space-y-2">
-                  <label
-                    htmlFor="name"
-                    className="text-sm font-medium text-brand-light"
-                  >
-                    Nombre
-                  </label>
-                  <Input
-                    id="name"
-                    name="name"
-                    maxLength={80}
-                    required
-                    placeholder="Tu nombre"
-                    value={formData.name}
-                    onChange={handleInputChange("name")}
-                  />
-                </div>
-
-                <div className="space-y-2">
-                  <label
-                    htmlFor="email"
-                    className="text-sm font-medium text-brand-light"
-                  >
-                    Email
-                  </label>
-                  <Input
-                    id="email"
-                    name="email"
-                    type="email"
-                    maxLength={120}
-                    required
-                    placeholder="tu@email.com"
-                    value={formData.email}
-                    onChange={handleInputChange("email")}
-                  />
-                </div>
-
-                <div className="space-y-2">
-                  <label
-                    htmlFor="message"
-                    className="text-sm font-medium text-brand-light"
-                  >
-                    Mensaje
-                  </label>
-                  <Textarea
-                    id="message"
-                    name="message"
-                    maxLength={2000}
-                    required
-                    placeholder="Cuentanos sobre tu equipo y objetivos."
-                    value={formData.message}
-                    onChange={handleInputChange("message")}
-                  />
-                </div>
-
-                <Button
-                  type="submit"
-                  className="w-full"
-                  disabled={isSubmitting}
-                  aria-busy={isSubmitting}
-                >
-                  {isSubmitting ? "Enviando..." : "Enviar mensaje"}
-                </Button>
-              </form>
-            </Card>
+                Contactar por WhatsApp: +34 627 98 11 46
+              </a>
+            </div>
           </div>
         </motion.section>
       </main>
 
+      <Button
+        asChild
+        size="lg"
+        className="fixed bottom-4 left-4 z-50 rounded-full px-4 py-4 text-sm shadow-glow sm:bottom-7 sm:left-7 sm:px-5 sm:py-6"
+      >
+        <a href={WHATSAPP_URL} target="_blank" rel="noreferrer" aria-label="Abrir chat de WhatsApp">
+          <MessageCircle className="h-5 w-5 sm:mr-2" aria-hidden="true" />
+          <span className="hidden sm:inline">WhatsApp</span>
+        </a>
+      </Button>
+
       <footer className="border-t border-brand-primary/15 bg-brand-dark/85 py-8">
         <div className="container flex flex-col items-center justify-between gap-4 text-sm text-brand-light/75 md:flex-row">
           <p>&copy; InnoApp</p>
-          <nav className="flex items-center gap-5" aria-label="Footer links">
+          <nav className="flex flex-wrap items-center justify-center gap-4 sm:gap-5" aria-label="Footer links">
             <a
               href="#features"
               className="transition-colors hover:text-brand-primary"
@@ -732,8 +632,6 @@ function App() {
           </nav>
         </div>
       </footer>
-
-      <Toaster />
     </div>
   );
 }
