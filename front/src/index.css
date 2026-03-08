@@ -1,0 +1,62 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-primary: #8cf4ee;
+  --color-secondary: #59b2b0;
+  --color-accent: #448481;
+  --color-dark: #1f293d;
+  --color-dark2: #353d54;
+  --color-light: #c5efec;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  font-family: 'Poppins', ui-sans-serif, system-ui, sans-serif;
+  color: var(--color-light);
+  background-color: var(--color-dark);
+  background-image:
+    radial-gradient(circle at 78% -8%, rgba(89, 178, 176, 0.34), transparent 42%),
+    radial-gradient(circle at 12% 8%, rgba(68, 132, 129, 0.32), transparent 40%),
+    linear-gradient(160deg, #1f293d 0%, #181f31 55%, #1f2a42 100%);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#root {
+  width: 100%;
+}
+
+::selection {
+  color: var(--color-dark);
+  background-color: var(--color-primary);
+}
+
+@layer components {
+  .glass-panel {
+    @apply rounded-3xl border border-brand-primary/25 bg-brand-dark2/55 shadow-soft backdrop-blur-xl;
+  }
+
+  .heading-glow {
+    text-shadow: 0 10px 30px rgba(89, 178, 176, 0.2);
+  }
+}
+
+
