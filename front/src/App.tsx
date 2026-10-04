@@ -36,13 +36,11 @@ function Nav() {
     >
       <nav className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
         <a href="#inicio" className="flex items-center gap-2.5" aria-label="Ir al inicio">
-          <div className="w-7 h-7 rounded-lg bg-[#0a84ff] flex items-center justify-center">
-            <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-              <path d="M3 7h8M7 3v8" stroke="white" strokeWidth="2" strokeLinecap="round"/>
-              <circle cx="7" cy="7" r="2.5" fill="white" fillOpacity="0.3"/>
-            </svg>
-          </div>
-          <span className="font-display font-700 text-[17px] tracking-tight text-white">InnoApp</span>
+          <img
+            src="/images/innoapp-logo-header.svg"
+            alt="InnoApp"
+            className="h-8 w-auto"
+          />
         </a>
 
         <div className="hidden md:flex items-center gap-8">
