@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react'
 
+import InnoAppDemo from './components/InnoAppDemo'
+
 const WHATSAPP_PHONE = '34627981146'
 
 const buildWhatsAppUrl = (message: string) =>
@@ -182,7 +184,7 @@ function Hero() {
               <circle cx="8" cy="8" r="7" fill="none" stroke="currentColor" strokeWidth="1.2" fillOpacity="0"/>
               <path d="M6.5 5.5l4 2.5-4 2.5V5.5z"/>
             </svg>
-            Ver demo en vivo
+            Prueba la demo interactiva
           </a>
         </div>
 
@@ -191,128 +193,16 @@ function Hero() {
         </p>
       </div>
 
-      {/* Dashboard preview */}
-      <div className="animate-fade-up animate-fade-up-delay-4 relative max-w-5xl mx-auto mt-20" id="demo">
-        <div className="glow-border rounded-2xl overflow-hidden bg-[#0d0d0f]">
-          <DashboardPreview />
-        </div>
+      {/* Demo interactiva */}
+      <div className="animate-fade-up animate-fade-up-delay-4 relative max-w-5xl mx-auto mt-20 scroll-mt-24" id="demo">
         {/* Glow */}
-        <div className="absolute -bottom-10 left-1/2 -translate-x-1/2 w-2/3 h-20 bg-[#0a84ff]/20 blur-3xl"/>
+        <div className="absolute -bottom-10 left-1/2 -translate-x-1/2 w-2/3 h-20 bg-brand-secondary/25 blur-3xl"/>
+        <InnoAppDemo />
       </div>
+      <p className="relative mt-6 text-center text-[13px] text-[#86868b]">
+        Datos ficticios con fines de demostración · Usa los controles para recorrer cada paso.
+      </p>
     </section>
-  )
-}
-
-// ── Dashboard Preview (inline visual) ─────────────────────────────────────
-function DashboardPreview() {
-  const [active, setActive] = useState(0)
-  const bars = [42, 68, 55, 80, 63, 91, 74, 88, 57, 76, 95, 83]
-
-  return (
-    <div className="bg-[#0d0d0f] p-0">
-      {/* Window chrome */}
-      <div className="flex items-center gap-2 px-4 py-3 border-b border-white/[0.06] bg-[#111114]">
-        <div className="w-3 h-3 rounded-full bg-[#ff5f57]"/>
-        <div className="w-3 h-3 rounded-full bg-[#febc2e]"/>
-        <div className="w-3 h-3 rounded-full bg-[#28c840]"/>
-        <div className="flex-1 mx-4 h-5 rounded-md bg-white/[0.04] flex items-center justify-center">
-          <span className="font-mono-data text-[10px] text-[#86868b]">app.innoapp.com/dashboard</span>
-        </div>
-      </div>
-
-      <div className="grid grid-cols-12 min-h-[420px]">
-        {/* Sidebar */}
-        <div className="col-span-2 border-r border-white/[0.06] p-3 hidden md:block">
-          <div className="space-y-1">
-            {['Resumen','Análisis','Datos','IA Insights','Reportes','Alertas'].map((item, i) => (
-              <button
-                type="button"
-                key={item}
-                onClick={() => setActive(i)}
-                className={`w-full text-left text-[11px] px-2.5 py-2 rounded-lg font-medium transition-colors ${
-                  active === i ? 'bg-[#0a84ff]/20 text-[#0a84ff]' : 'text-[#86868b] hover:text-white hover:bg-white/[0.04]'
-                }`}
-                aria-pressed={active === i}
-              >
-                {item}
-              </button>
-            ))}
-          </div>
-        </div>
-
-        {/* Main content */}
-        <div className="col-span-12 md:col-span-10 p-4 space-y-4">
-          {/* KPI row */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-            {[
-              { label: 'Ingresos', value: '$2.4M', delta: '+18.2%', up: true },
-              { label: 'Usuarios activos', value: '84,231', delta: '+6.7%', up: true },
-              { label: 'Conversión', value: '3.84%', delta: '-0.3%', up: false },
-              { label: 'LTV promedio', value: '$1,240', delta: '+22.1%', up: true },
-            ].map(kpi => (
-              <div key={kpi.label} className="data-card rounded-xl p-3">
-                <div className="font-mono-data text-[10px] text-[#86868b] mb-1 uppercase tracking-wider">{kpi.label}</div>
-                <div className="font-display font-700 text-[20px] text-white leading-none mb-1">{kpi.value}</div>
-                <div className={`font-mono-data text-[11px] ${kpi.up ? 'text-[#30d158]' : 'text-[#ff375f]'}`}>
-                  {kpi.delta} vs mes anterior
-                </div>
-              </div>
-            ))}
-          </div>
-
-          {/* Chart + AI insight */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-            <div className="col-span-1 sm:col-span-2 data-card rounded-xl p-3">
-              <div className="flex items-center justify-between mb-3">
-                <div>
-                  <div className="font-mono-data text-[10px] text-[#86868b] uppercase tracking-wider">Ingresos 2024</div>
-                  <div className="font-display font-600 text-[14px] text-white">Tendencia mensual</div>
-                </div>
-                <span className="font-mono-data text-[10px] bg-[#30d158]/10 text-[#30d158] px-2 py-0.5 rounded">+18.2%</span>
-              </div>
-              <div className="flex items-end gap-1 h-24">
-                {bars.map((h, i) => (
-                  <div key={i} className="flex-1 h-full flex flex-col items-center justify-end gap-0.5">
-                    <div
-                      className="w-full rounded-sm chart-bar"
-                      style={{
-                        height: `${h}%`,
-                        background: i === 11
-                          ? 'linear-gradient(to top, #0a84ff, #5ac8fa)'
-                          : 'rgba(255,255,255,0.07)'
-                      }}
-                    />
-                  </div>
-                ))}
-              </div>
-              <div className="flex justify-between mt-1">
-                {['E','F','M','A','M','J','J','A','S','O','N','D'].map((m, monthIndex) => (
-                  <span key={`${m}-${monthIndex}`} className="flex-1 text-center font-mono-data text-[8px] text-[#86868b]">{m}</span>
-                ))}
-              </div>
-            </div>
-
-            <div className="col-span-1 data-card rounded-xl p-3 flex flex-col gap-2">
-              <div className="font-mono-data text-[10px] text-[#86868b] uppercase tracking-wider">IA Insight</div>
-              <div className="flex-1 flex items-start gap-2">
-                <div className="w-6 h-6 rounded-full bg-[#0a84ff]/20 flex items-center justify-center flex-shrink-0 mt-0.5">
-                  <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
-                    <path d="M5 1v3l2 1-2 1v3" stroke="#0a84ff" strokeWidth="1.2" strokeLinecap="round"/>
-                  </svg>
-                </div>
-                <p className="font-mono-data text-[10px] text-[#86868b] leading-relaxed line-clamp-3">
-                  Diciembre supera proyección en 12%. Segmento Enterprise crece 34% QoQ. Acción recomendada: escalar canal directo.
-                </p>
-              </div>
-              <div className="h-px bg-white/[0.05]"/>
-              <div className="font-mono-data text-[10px] text-[#0a84ff] cursor-pointer hover:underline">
-                Ver análisis completo →
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
   )
 }
 

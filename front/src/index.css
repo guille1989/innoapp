@@ -134,6 +134,57 @@ body {
   transition: height 1s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+/* ── Demo interactiva (InnoAppDemo) ── */
+@keyframes demo-fade-in {
+  from { opacity: 0; transform: translateY(4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes demo-ticket-in {
+  from { max-height: 0; opacity: 0; transform: translateY(-8px); }
+  to   { max-height: 72px; opacity: 1; transform: translateY(0); }
+}
+
+@keyframes demo-shimmer {
+  from { transform: translateX(-100%); }
+  to   { transform: translateX(100%); }
+}
+
+@keyframes demo-flow {
+  0%   { left: 0%; opacity: 0; }
+  20%  { opacity: 1; }
+  80%  { opacity: 1; }
+  100% { left: 100%; opacity: 0; }
+}
+
+@keyframes demo-pop {
+  0%   { opacity: 0; transform: scale(0.6); }
+  60%  { opacity: 1; transform: scale(1.08); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+@keyframes demo-float-up {
+  0%       { opacity: 0; transform: translateY(6px); }
+  15%, 75% { opacity: 1; transform: translateY(0); }
+  100%     { opacity: 0; transform: translateY(-6px); }
+}
+
+@keyframes demo-typing {
+  0%, 60%, 100% { opacity: 0.3; transform: translateY(0); }
+  30%           { opacity: 1; transform: translateY(-2px); }
+}
+
+.demo-fade-in { animation: demo-fade-in 0.4s cubic-bezier(0.16, 1, 0.3, 1) both; }
+.demo-ticket-in { animation: demo-ticket-in 0.6s cubic-bezier(0.16, 1, 0.3, 1) both; overflow: hidden; }
+.demo-shimmer {
+  background: linear-gradient(90deg, transparent, rgba(140, 244, 238, 0.14), transparent);
+  animation: demo-shimmer 1.2s ease-in-out infinite;
+}
+.demo-flow { animation: demo-flow 0.9s linear infinite; }
+.demo-pop { animation: demo-pop 0.45s cubic-bezier(0.16, 1, 0.3, 1) both; }
+.demo-float-up { animation: demo-float-up 3s ease both; }
+.demo-typing-dot { animation: demo-typing 1s ease-in-out infinite; }
+
 
 
 #root {
