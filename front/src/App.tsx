@@ -45,7 +45,7 @@ function Nav() {
           />
         </a>
 
-        <div className="hidden md:flex items-center gap-8">
+        <div className="hidden lg:flex items-center gap-8">
           {navLinks.map(item => (
             <a
               key={item.label}
@@ -57,7 +57,7 @@ function Nav() {
           ))}
         </div>
 
-        <div className="hidden md:flex items-center gap-3">
+        <div className="hidden lg:flex items-center gap-3">
           <a
             href={CONTACT_URL}
             target="_blank"
@@ -78,7 +78,7 @@ function Nav() {
 
         <button
           type="button"
-          className="md:hidden text-[#86868b] hover:text-white"
+          className="lg:hidden text-[#86868b] hover:text-white"
           onClick={() => setMenuOpen(!menuOpen)}
           aria-expanded={menuOpen}
           aria-controls="mobile-navigation"
@@ -93,7 +93,7 @@ function Nav() {
       </nav>
 
       {menuOpen && (
-        <div id="mobile-navigation" className="md:hidden bg-black/95 backdrop-blur-xl border-t border-white/[0.06] px-6 pb-6 pt-4 flex flex-col gap-4">
+        <div id="mobile-navigation" className="lg:hidden bg-black/95 backdrop-blur-xl border-t border-white/[0.06] px-6 pb-6 pt-4 flex flex-col gap-4">
           {navLinks.map(item => (
             <a key={item.label} href={item.href} className="text-white font-medium text-[16px]" onClick={() => setMenuOpen(false)}>{item.label}</a>
           ))}
@@ -124,7 +124,7 @@ function Ticker() {
     <div className="overflow-hidden border-y border-white/[0.06] py-3.5 bg-[#0d0d0f]">
       <div className="ticker-track flex gap-12 w-max">
         {items.map((item, i) => (
-          <span key={i} className="flex items-center gap-3 whitespace-nowrap text-[13px] font-mono-data text-[#86868b]">
+          <span key={i} aria-hidden={i >= tickerItems.length || undefined} className="flex items-center gap-3 whitespace-nowrap text-[13px] font-mono-data text-[#86868b]">
             <span className="w-1 h-1 rounded-full bg-[#0a84ff] inline-block" style={{animation:'pulse-dot 2s ease infinite', animationDelay:`${i*0.2}s`}}/>
             {item}
           </span>
@@ -661,9 +661,8 @@ function Footer() {
     {
       title: 'Recursos',
       links: [
-        { label: 'Demo', href: '#demo' },
+        { label: 'Demo interactiva', href: '#demo' },
         { label: 'Datos', href: '#datos' },
-        { label: 'Dashboard', href: '#demo' },
       ],
     },
     {
@@ -680,15 +679,9 @@ function Footer() {
       <div className="max-w-5xl mx-auto">
         <div className="grid md:grid-cols-5 gap-12 mb-16">
           <div className="md:col-span-1">
-            <div className="flex items-center gap-2.5 mb-4">
-              <div className="w-7 h-7 rounded-lg bg-[#0a84ff] flex items-center justify-center">
-                <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                  <path d="M3 7h8M7 3v8" stroke="white" strokeWidth="2" strokeLinecap="round"/>
-                  <circle cx="7" cy="7" r="2.5" fill="white" fillOpacity="0.3"/>
-                </svg>
-              </div>
-              <span className="font-display font-700 text-[17px] text-white">InnoApp</span>
-            </div>
+            <a href="#inicio" className="inline-flex mb-4" aria-label="Volver al inicio">
+              <img src="/images/innoapp-logo-header.svg" alt="InnoApp" className="h-7 w-auto"/>
+            </a>
             <p className="text-[13px] text-[#86868b] leading-relaxed mb-5">
               Simple. Eficiente. Transformador. Los datos son el negocio.
             </p>

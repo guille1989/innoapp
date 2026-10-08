@@ -1,13 +1,14 @@
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/* Fuentes servidas desde el propio proyecto (@fontsource-variable, importadas en main.tsx) */
 :root {
-  --font-display: 'Outfit', sans-serif;
-  --font-body: 'Outfit', sans-serif;
-  --font-mono: 'JetBrains Mono', monospace;
+  color-scheme: dark;
+
+  --font-display: 'Outfit Variable', sans-serif;
+  --font-body: 'Outfit Variable', sans-serif;
+  --font-mono: 'JetBrains Mono Variable', monospace;
 
   --color-ink: #f5f5f7;
   --color-ink-muted: #86868b;
@@ -26,6 +27,7 @@
 
 html {
   scroll-behavior: smooth;
+  scrollbar-color: #2c2c30 #000000;
 }
 
 body {
@@ -38,8 +40,6 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
-::-webkit-scrollbar { width: 0; }
 
 .font-display { font-family: var(--font-display); }
 .font-mono-data { font-family: var(--font-mono); }
