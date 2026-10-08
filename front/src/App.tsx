@@ -149,7 +149,7 @@ function Hero() {
         <div className="animate-fade-up inline-flex items-center gap-2 border border-[#0a84ff]/30 bg-[#0a84ff]/10 rounded-full px-4 py-1.5 mb-8">
           <span className="w-1.5 h-1.5 rounded-full bg-[#30d158]" style={{animation:'pulse-dot 1.5s ease infinite'}}/>
           <span className="font-mono-data text-[12px] text-[#0a84ff] font-medium tracking-wide uppercase">
-            Plataforma de Innovación Basada en Datos
+            Analítica de ventas para negocios con TPV
           </span>
         </div>
 
@@ -160,8 +160,8 @@ function Hero() {
         </h1>
 
         <p className="animate-fade-up animate-fade-up-delay-2 text-[clamp(16px,2vw,20px)] text-[#86868b] leading-relaxed max-w-2xl mx-auto mb-12 font-light">
-          InnoApp convierte la complejidad de tus datos en decisiones estratégicas.
-          Simple. Eficiente. Transformador.
+          InnoApp captura automáticamente los tickets de tus TPV y los convierte en métricas claras
+          y respuestas con IA. Para hostelería, retail y cadenas de cualquier tamaño.
         </p>
 
         <div className="animate-fade-up animate-fade-up-delay-3 flex flex-col sm:flex-row items-center justify-center gap-4">
@@ -241,9 +241,9 @@ const features = [
         <rect x="12" y="12" width="8" height="8" rx="2" fill="#0a84ff" fillOpacity="0.05" stroke="#0a84ff" strokeWidth="1.2"/>
       </svg>
     ),
-    tag: 'Unificación',
-    title: 'Todos tus datos, una sola verdad',
-    body: 'Conecta CRM, ERP, redes sociales, analytics y más de 180 fuentes. InnoApp unifica todo en un repositorio semántico que habla el idioma de tu negocio.',
+    tag: 'Captura automática',
+    title: 'Cada ticket, registrado al instante',
+    body: 'InnoApp recoge automáticamente los tickets de tus TPV en cuanto se emiten. Sin exportar archivos, sin hojas de cálculo y sin teclear nada a mano.',
   },
   {
     icon: (
@@ -252,9 +252,9 @@ const features = [
         <circle cx="19" cy="8" r="2" fill="#30d158"/>
       </svg>
     ),
-    tag: 'IA Predictiva',
-    title: 'Anticipa el futuro antes que la competencia',
-    body: 'Modelos de machine learning entrenados con tus propios datos predicen churn, oportunidades de upsell y disrupciones operativas con semanas de anticipación.',
+    tag: 'Tiempo real',
+    title: 'Tus ventas, al minuto',
+    body: 'Ventas, tickets, ticket medio y evolución del día frente a ayer, actualizados en tiempo real y disponibles desde el móvil o el ordenador.',
   },
   {
     icon: (
@@ -264,9 +264,9 @@ const features = [
         <circle cx="11" cy="11" r="1.5" fill="#ff9f0a"/>
       </svg>
     ),
-    tag: 'Tiempo real',
-    title: 'Decisiones al ritmo de tu negocio',
-    body: 'Alertas inteligentes y dashboards que se actualizan en milisegundos. No más reportes del lunes para decisiones del viernes.',
+    tag: 'Sucursales',
+    title: 'Compara todos tus locales',
+    body: 'Ranking de sucursales, comparativas entre locales y avisos cuando uno va por debajo de su ritmo habitual. Ideal para cadenas y franquicias.',
   },
   {
     icon: (
@@ -286,9 +286,9 @@ const features = [
         <path d="M4 11h14M4 7h10M4 15h7" stroke="#5ac8fa" strokeWidth="1.5" strokeLinecap="round"/>
       </svg>
     ),
-    tag: 'No-code',
-    title: 'Innovación sin barreras técnicas',
-    body: 'Construye pipelines de datos, define métricas personalizadas y diseña dashboards sin escribir una sola línea de código. El poder de datos para todos en tu equipo.',
+    tag: 'Asistente IA',
+    title: 'Pregunta a tus datos',
+    body: '«¿Qué local vende más hoy?» o «¿Cómo vamos frente a la semana pasada?». Escribe la pregunta y obtén la respuesta al instante, en lenguaje natural.',
   },
   {
     icon: (
@@ -297,9 +297,9 @@ const features = [
         <path d="M11 3 V19M2 8 L11 13 L20 8" stroke="#ff375f" strokeWidth="1.2" strokeOpacity="0.4"/>
       </svg>
     ),
-    tag: 'Colaboración',
-    title: 'Toda la organización alineada al dato',
-    body: 'Workspace compartido donde CEO, Data team y Marketing hablan el mismo idioma. Anotaciones, versiones, y flujos de aprobación integrados.',
+    tag: 'Productos',
+    title: 'Qué vendes y cuándo lo vendes',
+    body: 'Productos más vendidos, horas punta y tendencias por día de la semana para ajustar compras, turnos y promociones con datos reales.',
   },
 ]
 
@@ -310,10 +310,10 @@ function Features() {
         <div className="mb-16 max-w-2xl">
           <div className="font-mono-data text-[12px] text-[#0a84ff] uppercase tracking-[0.15em] mb-4">Plataforma</div>
           <h2 className="font-display font-800 text-[clamp(32px,5vw,56px)] leading-[1.0] tracking-tight text-white mb-5">
-            Diseñado para quienes<br/>toman decisiones que importan.
+            Todo lo que pasa en tus cajas,<br/>en un solo panel.
           </h2>
           <p className="text-[17px] text-[#86868b] leading-relaxed">
-            Cada funcionalidad existe porque resuelve un problema real de negocio. Sin ruido. Sin complejidad innecesaria.
+            Hostelería, retail o una cadena con decenas de locales: InnoApp convierte la actividad de tus TPV en información clara para decidir cada día.
           </p>
         </div>
 
@@ -341,18 +341,18 @@ function HowItWorks() {
   const steps = [
     {
       num: '01',
-      title: 'Conecta tus fuentes',
-      body: 'Un clic para integrar tus herramientas existentes. Sin migraciones complejas ni proyectos de meses.',
+      title: 'Conecta tus TPV',
+      body: 'InnoApp se integra con los sistemas de venta que ya usas. Sin cambiar de TPV ni tu forma de trabajar.',
     },
     {
       num: '02',
-      title: 'InnoApp unifica y enriquece',
-      body: 'Nuestra IA limpia, normaliza y cruza tus datos automáticamente. El modelo de datos se adapta a tu negocio.',
+      title: 'Procesamos cada ticket',
+      body: 'Los tickets se capturan automáticamente y se procesan en la nube en tiempo real: importes, productos, horas y sucursal.',
     },
     {
       num: '03',
-      title: 'Descubre y actúa',
-      body: 'Dashboards, alertas y recomendaciones listas desde el día uno. Tu equipo toma mejores decisiones desde la primera semana.',
+      title: 'Decide con datos',
+      body: 'Consulta el dashboard o pregunta al asistente de IA qué está pasando en tu negocio, desde el primer día.',
     },
   ]
   return (
@@ -361,7 +361,7 @@ function HowItWorks() {
         <div className="text-center mb-16">
           <div className="font-mono-data text-[12px] text-[#0a84ff] uppercase tracking-[0.15em] mb-4">Cómo funciona</div>
           <h2 className="font-display font-800 text-[clamp(32px,5vw,52px)] leading-tight tracking-tight text-white">
-            De datos en silos a<br/>ventaja competitiva.
+            Del ticket a la decisión,<br/>en tiempo real.
           </h2>
         </div>
 
@@ -484,28 +484,28 @@ function Pricing() {
   const plans = [
     {
       name: 'Starter',
-      price: annual ? '$149' : '$189',
+      price: annual ? '149 €' : '189 €',
       period: annual ? '/mes · facturado anual' : '/mes',
-      desc: 'Para equipos que empiezan su journey data-driven.',
-      features: ['5 fuentes de datos','Hasta 500K eventos/mes','3 usuarios','Dashboards ilimitados','Soporte por email'],
+      desc: 'Para negocios con uno o dos locales que quieren controlar sus ventas.',
+      features: ['Hasta 2 sucursales','Captura automática de tickets','Dashboard en tiempo real','3 usuarios','Soporte por email'],
       cta: 'Empieza gratis',
       highlight: false,
     },
     {
       name: 'Growth',
-      price: annual ? '$399' : '$499',
+      price: annual ? '399 €' : '499 €',
       period: annual ? '/mes · facturado anual' : '/mes',
-      desc: 'Para empresas que quieren ventaja competitiva real.',
-      features: ['30 fuentes de datos','Hasta 10M eventos/mes','Usuarios ilimitados','IA predictiva incluida','Alertas en tiempo real','SLA 99.9%','Soporte prioritario'],
+      desc: 'Para negocios en crecimiento con varios locales.',
+      features: ['Hasta 10 sucursales','Usuarios ilimitados','Asistente IA incluido','Comparativas entre sucursales','Alertas en tiempo real','SLA 99.9%','Soporte prioritario'],
       cta: 'Empieza prueba gratuita',
       highlight: true,
     },
     {
       name: 'Enterprise',
-      price: 'Custom',
+      price: 'A medida',
       period: '',
-      desc: 'Infraestructura dedicada y acompañamiento estratégico.',
-      features: ['Fuentes ilimitadas','Volumen ilimitado','SSO + SAML','Contrato privado de datos','Data Scientist dedicado','SLA 99.99%','Onboarding ejecutivo'],
+      desc: 'Para cadenas y franquicias con necesidades específicas.',
+      features: ['Sucursales ilimitadas','Integración a medida con tu TPV o ERP','SSO + SAML','Contrato privado de datos','Data Scientist dedicado','SLA 99.99%','Onboarding ejecutivo'],
       cta: 'Hablar con ventas',
       highlight: false,
     },
@@ -683,7 +683,7 @@ function Footer() {
               <img src="/images/innoapp-logo-header.svg" alt="InnoApp" className="h-7 w-auto"/>
             </a>
             <p className="text-[13px] text-[#86868b] leading-relaxed mb-5">
-              Simple. Eficiente. Transformador. Los datos son el negocio.
+              Analítica de ventas automática para negocios con TPV. Simple y eficiente.
             </p>
             <div className="flex gap-3">
               {['Twitter','LinkedIn','GitHub'].map(s => (
